@@ -1,0 +1,15 @@
+Options +FollowSymLinks
+IndexIgnore */*
+AddDefaultCharset utf-8
+AddCharset utf-8 *
+RewriteEngine on
+
+# не позволять httpd отдавать файлы, начинающиеся с точки (.htaccess, .svn, .git и прочие)
+RedirectMatch 403 /\..*$
+ 
+# если директория или файл существуют, используем их
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# в противном случае перенаправляем запрос через index.php
+RewriteRule . index.php
